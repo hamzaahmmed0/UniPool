@@ -1,0 +1,85 @@
+@media (max-width: 700px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+  }
+  .nav-container {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+  .nav-menu {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+    display: none;
+    background: #2d3e50;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 100;
+    padding: 1rem 0;
+  }
+  .nav-menu.open {
+    display: flex;
+  }
+  .nav-link, .auth-btn {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    text-align: left;
+    font-size: 1.1rem;
+    color: #fff;
+    border: none;
+    background: none;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+  .ride-item {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+  .btn {
+    width: 100%;
+    margin-bottom: 0.7rem;
+    font-size: 1.1rem;
+  }
+  .hero {
+    margin-top: 1.5rem;
+    padding: 0 0.5rem;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero-subtitle, .hero-description {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .auth-container {
+    padding: 1rem;
+  }
+  .hero {
+    margin-top: 1rem;
+    padding: 0 0.2rem;
+  }
+  .container {
+    padding: 0.5rem 0.2rem;
+  }
+  .form-group label {
+    font-size: 1rem;
+  }
+  input, select, textarea {
+    font-size: 1rem;
+    padding: 0.4rem;
+  }
+} 

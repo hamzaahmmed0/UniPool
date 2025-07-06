@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - UniPool</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-bg">
+        <div class="auth-card section-dark">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-car"></i> UniPool
+                </div>
+                <div class="auth-subtitle">University Ride Sharing</div>
+            </div>
+            
+            <!-- Error/Success Messages -->
+            <div id="message-container"></div>
+            
+            <!-- Sign Out Container -->
+            <div id="signout-container" style="display:none; margin-bottom: 1rem;">
+                <button id="signout-btn" class="auth-btn btn btn-primary" style="width:auto; padding:0.5rem 1.5rem; font-size:1rem;">Sign Out</button>
+            </div>
+            
+            <!-- Sign In Form - FIXED: Added style="display: flex;" -->
+            <form id="signin-form" class="auth-form" style="display: flex;">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="signin-email" class="form-input" placeholder="your.email@fccollege.edu.pk" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="signin-password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="auth-btn btn btn-primary" id="signin-btn">
+                    <span class="btn-text">Sign In</span>
+                </button>
+            </form>
+            
+            <!-- Sign Up Form -->
+            <form id="signup-form" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="signup-name" class="form-input" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="signup-email" class="form-input" placeholder="your.email@fccollege.edu.pk" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Role</label>
+                    <select id="signup-role" class="role-select" required>
+                        <option value="Rider">Rider</option>
+                        <option value="Driver">Driver</option>
+                        <option value="Both">Both</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="signup-password" class="form-input" placeholder="Create a password (min 6 characters)" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" class="form-input" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="auth-btn btn btn-primary" id="signup-btn">
+                    <span class="btn-text">Create Account</span>
+                </button>
+            </form>
+            
+            <div class="auth-toggle">
+                <button type="button" class="auth-toggle-btn" id="toggle-form">
+                    Don't have an account? Sign Up
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { registerUser, signInUser, onAuthStateChange, signOutUser } from './js/services/auth-service.js';
+        document.addEventListener('DOMContentLoaded', () => {
+            const signinForm = document.getElementById('signin-form');
+            const signupForm = document.getElementById('signup-form');
+            const toggleBtn = document.getElementById('toggle-form');
+            const messageContainer = document.getElementById('message-container');
+            const signoutContainer = document.getElementById('signout-container');
+            const signoutBtn = document.getElementById('signout-btn');
+            let isSignUp = signupForm.style.display === 'flex';
+
+            // Toggle between sign in and sign up forms
+            toggleBtn.addEventListener('click', () => {
+                isSignUp = !isSignUp;
+                if (isSignUp) {
+                    signinForm.style.display = 'none';
+                    signupForm.style.display = 'flex';
+                    toggleBtn.textContent = 'Already have an account? Sign In';
+                } else {
+                    signupForm.style.display = 'none';
+                    signinForm.style.display = 'flex';
+                    toggleBtn.textContent = "Don't have an account? Sign Up";
+                }
+                clearMessages();
+                clearFormErrors();
+            });
+
+            onAuthStateChange((user) => {
+                if (user) {
+                    signoutContainer.style.display = 'block';
+                } else {
+                    signoutContainer.style.display = 'none';
+                }
+            });
+            signoutBtn.addEventListener('click', async () => {
+                await signOutUser();
+                window.location.reload();
+            });
+
+            // Handle sign in
+            signinForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const email = document.getElementById('signin-email').value.trim();
+                const password = document.getElementById('signin-password').value;
+                const submitBtn = document.getElementById('signin-btn');
+                
+                try {
+                    // Show loading state
+                    setButtonLoading(submitBtn, true);
+                    clearMessages();
+                    clearFormErrors();
+                    
+                    // Validate inputs
+                    if (!email || !password) {
+                        throw new Error('Please fill in all fields');
+                    }
+                    
+                    await signInUser(email, password);
+                    showMessage('Sign in successful! Redirecting...', 'success');
+                    
+                    // Redirect after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                    
+                } catch (error) {
+                    console.error('Sign in error:', error);
+                    showMessage(error.message, 'error');
+                } finally {
+                    setButtonLoading(submitBtn, false);
+                }
+            });
+            
+            // Handle sign up
+            signupForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('signup-name').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const role = document.getElementById('signup-role').value;
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('signup-confirm-password').value;
+                const submitBtn = document.getElementById('signup-btn');
+                
+                try {
+                    // Show loading state
+                    setButtonLoading(submitBtn, true);
+                    clearMessages();
+                    clearFormErrors();
+                    
+                    // Validate inputs
+                    if (!name || !email || !password || !confirmPassword) {
+                        throw new Error('Please fill in all fields');
+                    }
+                    
+                    if (password !== confirmPassword) {
+                        throw new Error('Passwords do not match');
+                    }
+                    
+                    if (password.length < 6) {
+                        throw new Error('Password must be at least 6 characters long');
+                    }
+                    
+                    await registerUser(email, password, name, role);
+                    showMessage('Account created successfully! Please sign in.', 'success');
+                    
+                    // Switch back to sign in form
+                    setTimeout(() => {
+                        toggleBtn.click();
+                    }, 2000);
+                    
+                } catch (error) {
+                    console.error('Sign up error:', error);
+                    showMessage(error.message, 'error');
+                } finally {
+                    setButtonLoading(submitBtn, false);
+                }
+            });
+
+            // Helper functions
+            function showMessage(message, type) {
+                messageContainer.innerHTML = `
+                    <div class="${type}-message">
+                        ${message}
+                    </div>
+                `;
+            }
+            function clearMessages() {
+                messageContainer.innerHTML = '';
+            }
+            function clearFormErrors() {
+                document.querySelectorAll('.form-input.error').forEach(input => {
+                    input.classList.remove('error');
+                });
+            }
+            function setButtonLoading(button, loading) {
+                const btnText = button.querySelector('.btn-text');
+                if (loading) {
+                    button.disabled = true;
+                    btnText.innerHTML = '<span class="loading-spinner"></span>Loading...';
+                } else {
+                    button.disabled = false;
+                    btnText.textContent = button.id === 'signin-btn' ? 'Sign In' : 'Create Account';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

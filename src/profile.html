@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - UniPool</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <script type="module">
+    import { auth } from './js/firebase-config.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = 'auth.html';
+      }
+    });
+    </script>
+    <nav class="navbar themed-navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-car"></i>
+                <span>UniPool</span>
+            </div>
+            <div class="nav-center">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="find-rides.html" class="nav-link">Find Rides</a>
+                <a href="post-ride.html" class="nav-link">Post Ride</a>
+                <a href="profile.html" class="nav-link active">Profile</a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <section class="container profile-section">
+            <h2>Profile</h2>
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profile-name"></h2>
+                        <p id="profile-email"></p>
+                        <span id="role-badge" class="role-badge"></span>
+                    </div>
+                </div>
+                <div id="profile-tabs" class="profile-tabs">
+                    <button class="profile-tab active" data-tab="my-rides">My Rides</button>
+                    <button class="profile-tab" data-tab="my-bookings">My Bookings</button>
+                    <button class="profile-tab" data-tab="streaks">Streaks</button>
+                    <button class="profile-tab" data-tab="settings">Settings</button>
+                </div>
+                <div class="profile-content">
+                    <div id="my-rides" class="profile-panel">
+                        <h3>My Posted Rides</h3>
+                        <div id="my-rides-list" class="rides-list"></div>
+                    </div>
+                    <div id="my-bookings" class="profile-panel">
+                        <h3>My Booked Rides</h3>
+                        <div id="bookings-list" class="rides-list"></div>
+                    </div>
+                    <div id="streaks" class="profile-panel">
+                        <div class="streak-card">
+                            <div class="streak-number" id="current-streak"></div>
+                            <div class="streak-label">Day Streak</div>
+                            <div class="streak-details" id="streak-details"></div>
+                        </div>
+                        <h4>Recent Activity</h4>
+                        <div id="recent-activity" class="rides-list"></div>
+                    </div>
+                    <div id="settings" class="profile-panel">
+                        <h3>Account Settings</h3>
+                        <form id="settings-form">
+                            <div class="form-group">
+                                <label for="settings-name">Full Name</label>
+                                <input type="text" id="settings-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-phone">Phone Number</label>
+                                <input type="tel" id="settings-phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-role">Primary Role</label>
+                                <select id="settings-role">
+                                    <option value="driver">Driver</option>
+                                    <option value="rider">Rider</option>
+                                    <option value="both">Both</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                        </form>
+                        <div id="update-success" class="success-message">Profile updated successfully!</div>
+                        <button class="btn btn-danger" onclick="signOut()">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script type="module" src="js/components/profile.js"></script>
+</body>
+</html>

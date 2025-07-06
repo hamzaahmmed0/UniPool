@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniPool - University Ride Sharing</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Fix for navbar links */
+        .nav-link {
+            display: block;
+            color: #fff !important;
+            text-decoration: none !important;
+            position: relative;
+            z-index: 9999;
+            pointer-events: auto !important;
+        }
+        
+        .nav-link:hover {
+            color: #ffd700 !important;
+        }
+        
+        .nav-link.active {
+            color: #ffd700 !important;
+        }
+        
+        /* Ensure home section is visible */
+        main {
+            display: block !important;
+        }
+        
+        .container {
+            display: block !important;
+        }
+        
+        /* Remove underlines from buttons */
+        .btn {
+            text-decoration: none !important;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            text-decoration: none !important;
+        }
+        
+        /* Light grey buttons for secondary actions */
+        .btn-light {
+            background: #e9ecef !important;
+            color: #495057 !important;
+            border: 1px solid #dee2e6 !important;
+        }
+        
+        .btn-light:hover {
+            background: #f8f9fa !important;
+            color: #495057 !important;
+        }
+        
+        /* Center all buttons */
+        .hero-buttons {
+            text-align: center;
+            margin-top: 3rem;  /* More space after description */
+        }
+        
+        .hero-buttons .btn {
+            margin: 0 0.5rem;
+            width: 140px;
+            text-align: center;
+        }
+        
+        .secondary-buttons {
+            text-align: center;
+            margin-top: 1rem;  /* Less space between button rows */
+        }
+         
+        .secondary-buttons .btn {
+            margin: 0 0.5rem;
+            width: 140px;
+            text-align: center;
+        }
+        
+        /* Mobile menu fixes */
+        @media (max-width: 700px) {
+            .nav-menu {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: #2d3e50;
+                z-index: 9999;
+            }
+            
+            .nav-menu.open {
+                display: flex !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar themed-navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-car"></i>
+                <span>UniPool</span>
+            </div>
+            <div class="nav-center">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="find-rides.html" class="nav-link">Find Rides</a>
+                <a href="post-ride.html" class="nav-link">Post Ride</a>
+                <a href="profile.html" class="nav-link">Profile</a>
+            </div>
+            <div class="nav-signup" id="nav-signup">
+                <a href="auth.html" class="btn btn-primary nav-signup-btn animated-signup">Sign Up</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section hero-bg-image pop-section" data-pop>
+            <div class="hero-content hero-overlay">
+                <h1 class="hero-title">Your Ride, Your Schedule,<br>Your University</h1>
+                <p class="hero-desc">UniPool revolutionizes how students connect for rides. Experience the convenience of coordinating travel with your classmates effortlessly.</p>
+                <a href="auth.html" class="btn btn-primary hero-signup animated-signup">Sign Up</a>
+            </div>
+            
+        </section>
+
+        <!-- Connect Section -->
+        <section class="section-dark connect-section panel-section pop-section" data-pop>
+            <div class="section-content">
+                <div class="section-text">
+                    <h2 class="section-title">Easily connect with classmates for convenient rides to campus and beyond.</h2>
+                    <p class="section-desc">UniPool simplifies your travel by connecting you with fellow students heading to Forman Christian College. Share rides, save costs, and make new friends along the way!</p>
+                    <div class="section-features feature-blocks-row">
+                        <div class="feature-block feature-block-bordered">
+                            <h3>Connect</h3>
+                            <p>Share rides and enjoy a community experience.</p>
+                        </div>
+                        <div class="feature-block feature-block-bordered">
+                            <h3>Save</h3>
+                            <p>Reduce travel costs while meeting new people.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-image connect-car-logo">
+                    <blockquote class="testimonial-quote">
+                        "UniPool made my daily commute so much easier and I met new friends along the way!"
+                        <footer>— Ayesha, FCCU Student</footer>
+                    </blockquote>
+                    <blockquote class="testimonial-quote">
+                        "I love how easy it is to find rides with UniPool. It's safe, affordable, and convenient!"
+                        <footer>— Bilal, FCCU Student</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="section-dark benefits-section panel-section pop-section" data-pop>
+            <div class="section-content align-center">
+                <div class="section-text">
+                    <span class="section-label">Connect</span>
+                    <h2 class="section-title">Discover the Benefits of Using UniPool</h2>
+                    <p class="section-desc">UniPool offers students an affordable and efficient way to travel. Enjoy the peace of mind that comes with safe rides and reliable connections.</p>
+                    <div class="benefits-list feature-blocks-row">
+                        <div class="benefit-block feature-block-bordered">
+                            <i class="fa fa-piggy-bank"></i>
+                            <div>
+                                <h4>Cost Savings</h4>
+                                <p>Share rides with friends to save money on transportation costs every trip.</p>
+                            </div>
+                        </div>
+                        <div class="benefit-block feature-block-bordered">
+                            <i class="fa fa-route"></i>
+                            <div>
+                                <h4>Convenience</h4>
+                                <p>Easily coordinate rides with classmates using our user-friendly app.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="auth.html" class="btn btn-primary">Sign Up</a>
+                </div>
+                <div class="section-image align-video-right">
+                    <video class="img-placeholder large video-placeholder" src="styles/images/istockphoto-1437677591-640_adpp_is.mp4" autoplay loop muted playsinline></video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Steps Section -->
+        <section class="section-dark steps-section panel-section pop-section" data-pop>
+            <div class="panel-border"></div>
+            <div class="section-content steps-content">
+                <div class="section-text">
+                    <span class="section-label">Connect</span>
+                    <h2 class="section-title">Discover How Easy It Is to Ride</h2>
+                    <p class="section-desc">UniPool simplifies your commute by connecting you with fellow students. From signing up to booking a ride, we make your journey seamless.</p>
+                </div>
+                <div class="steps-list">
+                    <div class="step-block">
+                        <i class="fa fa-arrow-right"></i>
+                        <h4>Step 1: Sign Up for Free</h4>
+                        <p>Create your account in just a few clicks.</p>
+                    </div>
+                    <div class="step-block">
+                        <i class="fa fa-envelope-open-text"></i>
+                        <h4>Step 2: Find a Ride</h4>
+                        <p>Browse available rides to your destination.</p>
+                    </div>
+                    <div class="step-block">
+                        <i class="fa fa-calendar-check"></i>
+                        <h4>Step 3: Book Your Ride</h4>
+                        <p>Confirm your ride and get ready to go!</p>
+                    </div>
+                </div>
+                <a href="auth.html" class="btn btn-primary">Sign Up</a>
+            </div>
+            <div class="panel-border"></div>
+        </section>
+
+        <!-- Join Community Section -->
+        <section class="section-dark join-section panel-section">
+            <div class="panel-border"></div>
+            <div class="join-content">
+                <h2 class="join-title">Join the UniPool Community!</h2>
+                <div class="join-desc">Connect with fellow students for convenient rides to Forman Christian College and beyond. Sign up today and make your campus commute easier!</div>
+                <a href="auth.html" class="btn btn-primary join-signup">Sign Up</a>
+            </div>
+            <div class="panel-border"></div>
+        </section>
+    </main>
+
+    <!-- Very minimal JavaScript - only for mobile menu -->
+    <script>
+        // Wait for page to load
+        window.addEventListener('load', function() {
+            console.log('Page loaded - setting up mobile menu');
+            
+            var navToggle = document.getElementById('nav-toggle');
+            var navMenu = document.getElementById('nav-menu');
+            
+            if (navToggle && navMenu) {
+                console.log('Mobile menu elements found');
+                
+                // Mobile menu toggle - very simple
+                navToggle.onclick = function() {
+                    console.log('Toggle clicked');
+                    navMenu.classList.toggle('open');
+                };
+                
+                // Test that links work
+                var links = document.querySelectorAll('.nav-link');
+                links.forEach(function(link, index) {
+                    console.log('Link ' + index + ':', link.href);
+                });
+            } else {
+                console.log('Mobile menu elements not found');
+            }
+        });
+    </script>
+    <script type="module">
+    import { auth } from './js/firebase-config.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js';
+    const navSignup = document.getElementById('nav-signup');
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navSignup.style.display = 'none';
+      } else {
+        navSignup.style.display = 'block';
+      }
+    });
+    </script>
+    <script>
+    // Scroll pop-up animation for .pop-section
+    document.addEventListener('DOMContentLoaded', function() {
+      const popSections = document.querySelectorAll('.pop-section');
+      const observer = new window.IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('pop-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      popSections.forEach(section => observer.observe(section));
+    });
+    </script>
+</body>
+</html>
